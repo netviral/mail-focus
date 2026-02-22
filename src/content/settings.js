@@ -121,24 +121,29 @@ function _createModalStructure() {
                 <!-- 1. Senders Tab (Now First) -->
                 <div class="pf-tab-content active" id="pf-tab-senders">
                     <div class="pf-list-section">
-                        <div class="pf-control-desc">
-                            Emails from these specific senders will always be marked important.
-                        </div>
                         <div class="pf-input-group">
                             <input type="email" class="pf-input" id="pf-email-input" placeholder="Add email address" />
                             <button class="pf-action-btn" id="pf-add-email">Add</button>
                         </div>
-                        <div class="pf-list-actions" id="pf-emails-actions" style="display: none;">
-                            <button class="pf-text-btn" id="pf-clear-emails">Clear Senders</button>
-                        </div>
                         
                         <div class="pf-list-management-header">
-                            <span class="pf-list-title">Important Senders</span>
+                            <div class="pf-title-with-info">
+                                <span class="pf-list-title">Important Senders</span>
+                                <div class="pf-info-wrapper">
+                                    <div class="pf-info-icon">?</div>
+                                    <div class="pf-info-tooltip">Emails from these specific senders will always be marked important.</div>
+                                </div>
+                            </div>
                             <div class="pf-search-expand-wrapper" id="pf-sender-search-wrap">
                                 <input type="text" class="pf-input pf-search-input-field" id="pf-sender-search" placeholder="Search...">
                                 <div class="pf-search-expand-icon" title="Search">${ICONS.search}</div>
                             </div>
                         </div>
+
+                        <div class="pf-list-actions" id="pf-emails-actions" style="display: none;">
+                            <button class="pf-text-btn" id="pf-clear-emails">Clear Senders</button>
+                        </div>
+
                         <div class="pf-item-list" id="pf-em-list"></div>
                     </div>
                 </div>
@@ -146,24 +151,29 @@ function _createModalStructure() {
                 <!-- 2. Domains Tab -->
                 <div class="pf-tab-content" id="pf-tab-domains">
                     <div class="pf-list-section">
-                        <div class="pf-control-desc">
-                            Any email from these domains (e.g., workplace.com) will be marked as important.
-                        </div>
                         <div class="pf-input-group">
                             <input type="text" class="pf-input" id="pf-domain-input" placeholder="eg. classroom.google.com" />
                             <button class="pf-action-btn" id="pf-add-domain">Add</button>
                         </div>
-                        <div class="pf-list-actions" id="pf-domains-actions" style="display: none;">
-                            <button class="pf-text-btn" id="pf-clear-domains">Clear Domains</button>
-                        </div>
 
                         <div class="pf-list-management-header">
-                            <span class="pf-list-title">Important Domains</span>
+                            <div class="pf-title-with-info">
+                                <span class="pf-list-title">Important Domains</span>
+                                <div class="pf-info-wrapper">
+                                    <div class="pf-info-icon">?</div>
+                                    <div class="pf-info-tooltip">Any email from these domains (e.g., workplace.com) will be marked as important.</div>
+                                </div>
+                            </div>
                             <div class="pf-search-expand-wrapper" id="pf-domain-search-wrap">
                                 <input type="text" class="pf-input pf-search-input-field" id="pf-domain-search" placeholder="Search...">
                                 <div class="pf-search-expand-icon" title="Search">${ICONS.search}</div>
                             </div>
                         </div>
+
+                        <div class="pf-list-actions" id="pf-domains-actions" style="display: none;">
+                            <button class="pf-text-btn" id="pf-clear-domains">Clear Domains</button>
+                        </div>
+
                         <div class="pf-item-list" id="pf-dom-list"></div>
                     </div>
                 </div>
@@ -171,24 +181,29 @@ function _createModalStructure() {
                 <!-- 3. Keywords Tab -->
                 <div class="pf-tab-content" id="pf-tab-keywords">
                     <div class="pf-list-section">
-                        <div class="pf-control-desc">
-                            Mark emails with these keywords in the SUBJECT as important.
-                        </div>
                         <div class="pf-input-group">
                             <input type="text" class="pf-input" id="pf-keyword-input" placeholder="eg. urgent, tech, volunteer, internship, project ..." />
                             <button class="pf-action-btn" id="pf-add-keyword">Add</button>
                         </div>
-                        <div class="pf-list-actions" id="pf-keywords-actions" style="display: none;">
-                            <button class="pf-text-btn" id="pf-clear-keywords">Clear Keywords</button>
-                        </div>
 
                         <div class="pf-list-management-header">
-                            <span class="pf-list-title">Important Keywords</span>
+                            <div class="pf-title-with-info">
+                                <span class="pf-list-title">Important Keywords</span>
+                                <div class="pf-info-wrapper">
+                                    <div class="pf-info-icon">?</div>
+                                    <div class="pf-info-tooltip">Emails containing these keywords in the SUBJECT will be marked as important.</div>
+                                </div>
+                            </div>
                             <div class="pf-search-expand-wrapper" id="pf-keyword-search-wrap">
                                 <input type="text" class="pf-input pf-search-input-field" id="pf-keyword-search" placeholder="Search...">
                                 <div class="pf-search-expand-icon" title="Search">${ICONS.search}</div>
                             </div>
                         </div>
+
+                        <div class="pf-list-actions" id="pf-keywords-actions" style="display: none;">
+                            <button class="pf-text-btn" id="pf-clear-keywords">Clear Keywords</button>
+                        </div>
+
                         <div class="pf-item-list" id="pf-key-list"></div>
                     </div>
                 </div>
@@ -258,7 +273,7 @@ function _createModalStructure() {
             </div>
         </div>
         <div class="pf-modal-footer">
-            Made by Ibrahim Khalil
+            Made by <a href="https://www.linkedin.com/in/ibrahim-khalil-11a60b185/" target="_blank" rel="noopener noreferrer">Ibrahim Khalil</a>
         </div>
     `;
 
