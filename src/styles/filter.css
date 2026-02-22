@@ -1,0 +1,52 @@
+/*
+ * styles/filter.css
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Controls how Gmail rows look when the priority filter is active.
+ *
+ * HOW IT WORKS:
+ *   1.  filter.js adds class "pf-filter-on" to <body> when the filter turns on.
+ *   2.  All email rows (tr.zA) in Gmail get opacity: 0.1 — dimmed.
+ *   3.  Rows that rowActions.js tagged with "pf-sender-highlight" stay at full
+ *       opacity — these are from priority senders.
+ *   4.  If a priority row is also unread (Gmail class "zE"), rowActions.js also
+ *       adds "pf-sender-unread", which shows a left-edge accent line via ::before.
+ *
+ * CSS CLASSES (all prefixed "pf-" = priority filter):
+ *   pf-filter-on          → on <body>, enables all rules below
+ *   pf-sender-highlight   → on a Gmail tr.zA row, un-dims it
+ *   pf-sender-unread      → on a highlighted row, adds the unread accent bar
+ *
+ * The floating #priority-toolbar-btn is hidden by default (display:none in JS);
+ * the Gmail top-bar toolbar button (toolbarButton.js) acts as the visible toggle.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* Dim everything when the filter is on */
+body.pf-filter-on tr.zA {
+    opacity: var(--pf-unimportant-opacity, 0.1);
+    transition: opacity 0.15s ease;
+}
+
+/* Un-dim rows from priority senders */
+body.pf-filter-on tr.zA.pf-sender-highlight {
+    opacity: 1 !important;
+}
+
+/* Left-edge accent bar for unread priority rows */
+body.pf-filter-on tr.zA.pf-sender-highlight.pf-sender-unread {
+    position: relative;
+}
+
+body.pf-filter-on tr.zA.pf-sender-highlight.pf-sender-unread::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--pf-accent-color, #5f6368);
+    border-radius: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+

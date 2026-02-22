@@ -1,0 +1,666 @@
+/*
+ * styles/settings.css
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Styles for the settings cog and the premium tabbed management modal.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ─── Floating Settings Button ────────────────────────────────────────────── */
+
+#priority-settings-cog {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: rgba(32, 33, 36, 0.85);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    z-index: 9998;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#priority-settings-cog:hover {
+    transform: translateY(-4px) rotate(90deg) scale(1.05);
+    background: rgba(32, 33, 36, 0.95);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ─── Modal Overlay ───────────────────────────────────────────────────────── */
+
+#priority-settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#priority-settings-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ─── Premium Modal Card ─────────────────────────────────────────────────── */
+
+#priority-settings-modal {
+    width: 90%;
+    max-width: 580px;
+    height: 600px;
+    /* FIXED HEIGHT: prevents jumpy resizing between tabs */
+    background: #0f1011;
+    border-radius: 28px;
+    color: #f0f0f0;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 24px 80px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.9) translateY(40px);
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+#priority-settings-overlay.visible #priority-settings-modal {
+    transform: scale(1) translateY(0);
+}
+
+/* Header */
+.pf-modal-header {
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pf-modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    text-align: center;
+}
+
+.pf-modal-close-btn {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pf-modal-close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ─── Scroll Container ───────────────────────────────────────────────────── */
+
+.pf-modal-scroll-wrapper {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    /* Contains the scrollable body */
+    display: flex;
+    flex-direction: column;
+}
+
+.pf-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 32px 32px;
+    scrollbar-gutter: stable;
+    /* Keeps layout stable when scrollbar appears/disappears */
+}
+
+.pf-modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.pf-modal-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.pf-modal-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Tab Navigation ─────────────────────────────────────────────────────── */
+
+.pf-tabs {
+    display: flex;
+    overflow-x: auto;
+    gap: 4px;
+    margin-top: 16px;
+    padding: 0 24px 16px;
+    scrollbar-width: none;
+}
+
+.pf-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.pf-tab-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #555;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.pf-tab-btn:hover {
+    color: #888;
+}
+
+.pf-tab-btn.active {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+/* ─── Search Bar (Expanding) ─────────────────────────────────────────────── */
+
+.pf-list-management-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 32px;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+.pf-list-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+}
+
+.pf-search-expand-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 28px;
+    height: 28px;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.pf-search-expand-wrapper:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pf-search-expand-wrapper.expanded {
+    width: 140px;
+    /* Slim and discrete */
+    background: #1c1d1f;
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.pf-search-expand-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+
+.pf-search-expand-icon:hover {
+    color: #ffffff;
+}
+
+.pf-search-expand-wrapper.expanded .pf-search-expand-icon {
+    width: 24px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.pf-search-input-field {
+    width: 100% !important;
+    height: 28px !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 0 0 10px !important;
+    color: #ffffff !important;
+    font-size: 12px !important;
+    font-weight: 500;
+    outline: none !important;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.pf-search-expand-wrapper.expanded .pf-search-input-field {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.pf-search-input-field::placeholder {
+    color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ─── List Layout ────────────────────────────────────────────────────────── */
+
+.pf-item-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Keywords specifically flow inline */
+#pf-key-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.pf-list-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.2s;
+}
+
+.pf-entry-email {
+    font-size: 14px;
+    color: #bbb;
+    font-weight: 500;
+}
+
+#pf-key-list .pf-list-entry {
+    width: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 6px 10px;
+}
+
+.pf-list-entry:first-child {
+    border-radius: 10px 10px 0 0;
+}
+
+.pf-list-entry:last-child {
+    border-radius: 0 0 10px 10px;
+    border-bottom: none;
+}
+
+#pf-key-list .pf-list-entry:first-child,
+#pf-key-list .pf-list-entry:last-child {
+    border-radius: 8px;
+}
+
+/* ─── Clear / Bulk Actions ───────────────────────────────────────────────── */
+
+.pf-list-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: -12px;
+    margin-bottom: 24px;
+}
+
+.pf-text-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.pf-text-btn:hover {
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.pf-restore-btn {
+    color: #888;
+    margin-top: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.pf-restore-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ─── Color Picker ───────────────────────────────────────────────────────── */
+
+.pf-color-picker-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: -8px;
+}
+
+.pf-color-picker-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 44px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.pf-color-picker-input::-webkit-color-swatch {
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pf-color-picker-input::-moz-color-swatch {
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pf-tab-content {
+    display: none;
+}
+
+.pf-tab-content.active {
+    display: block;
+    animation: pf-fade-in 0.3s ease;
+}
+
+@keyframes pf-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ─── Preferences Controls ────────────────────────────────────────────────── */
+
+.pf-section {
+    padding: 24px 0 16px;
+}
+
+.pf-control-row {
+    margin-bottom: 24px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 24px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.pf-control-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.pf-control-label {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.pf-control-name {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.pf-control-desc {
+    display: block;
+    font-size: 13.5px;
+    color: #777;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+/* Range Slider */
+.pf-range-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.pf-range {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 6px;
+    background: #2a2a2a;
+    border-radius: 10px;
+    outline: none;
+}
+
+.pf-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.pf-range-value {
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 10px;
+    border-radius: 8px;
+    min-width: 44px;
+    text-align: center;
+}
+
+/* ─── Toggle with Side Labels ────────────────────────────────────────────── */
+
+.pf-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 14px;
+}
+
+.pf-toggle-text {
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #444;
+    transition: color 0.3s;
+}
+
+/* State highlights */
+.pf-switch input:not(:checked)~.pf-label-off {
+    color: #fff;
+}
+
+.pf-switch input:checked~.pf-label-on {
+    color: #fff;
+}
+
+/* Toggle Switch */
+.pf-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 30px;
+}
+
+.pf-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.pf-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #2a2a2a;
+    transition: .4s;
+    border-radius: 30px;
+}
+
+.pf-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #444;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.pf-slider {
+    background-color: #ffffff;
+}
+
+input:checked+.pf-slider:before {
+    transform: translateX(22px);
+    background-color: #000;
+}
+
+/* ─── List Management UI ─────────────────────────────────────────────────── */
+
+.pf-list-section {
+    padding-top: 24px;
+    position: relative;
+}
+
+.pf-input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.pf-input {
+    flex: 1;
+    background: #111213;
+    border: 2px solid #2a2c2e;
+    border-radius: 14px;
+    padding: 14px 18px;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.pf-input:focus {
+    border-color: #fff;
+}
+
+.pf-action-btn {
+    background: #ffffff;
+    color: #000;
+    border: none;
+    border-radius: 14px;
+    padding: 0 24px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.pf-remove-item {
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    padding: 6px;
+    transition: all 0.2s;
+}
+
+.pf-remove-item:hover {
+    color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.1);
+    border-radius: 8px;
+}
+
+.pf-empty {
+    padding: 64px 0;
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+    font-style: italic;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pf-modal-footer {
+    padding: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: #777;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}

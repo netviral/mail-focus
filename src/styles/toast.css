@@ -1,0 +1,70 @@
+/*
+ * styles/toast.css
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Styles for the small notification toasts shown after marking/unmarking a sender.
+ *
+ * HOW IT WORKS:
+ *   1.  toast.js lazily creates a #priority-notifications div inside the Gmail
+ *       main area (see dom.js → getOrMakeNotificationArea).
+ *   2.  Each notification is a .toast-item div appended to that container.
+ *   3.  .toast-item starts invisible (opacity 0, shifted down).
+ *   4.  toast.js adds .toast-item--visible on the next animation frame,
+ *       triggering the CSS transition for the entrance animation.
+ *   5.  After TOAST.showDuration ms, .toast-item--visible is removed →
+ *       fade-out plays → then the element is removed from the DOM.
+ *
+ * CSS IDs / Classes:
+ *   #priority-notifications  → the container (created once, reused)
+ *   .toast-item              → individual notification card
+ *   .toast-item--visible     → toggled by JS to animate in/out
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* Container anchored to bottom-left of the Gmail main area */
+#priority-notifications {
+    position: absolute;
+    bottom: 24px;
+    left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 20;
+    pointer-events: none;
+    /* clicks pass through to Gmail underneath */
+}
+
+/* Individual notification card — starts hidden */
+.toast-item {
+    min-width: 280px;
+    max-width: 420px;
+    padding: 16px 20px;
+    border-radius: 14px;
+
+    background: rgba(32, 33, 36, 0.95);
+    color: #ffffff;
+
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 500;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.25),
+        0 12px 36px rgba(0, 0, 0, 0.35);
+
+    /* invisible + shifted down — JS toggles .toast-item--visible to animate in */
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+    transition: all 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    pointer-events: auto;
+}
+
+/* Visible state — JS adds this class after a requestAnimationFrame */
+.toast-item--visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.toast-item strong {
+    font-weight: 600;
+}

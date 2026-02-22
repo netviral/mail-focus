@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Gmail Important Filter",
+  "description": "Dims all Gmail emails except selected important senders.",
+  "version": "1.0",
+  "permissions": [],
+  "host_permissions": [
+    "https://mail.google.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content.js","menuShortcut.js","injectInToolbar.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
